@@ -82,16 +82,22 @@ namespace QMessage.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetQmqInHeaderMessageType()
+        public JsonResult GetQmqInHeaderMessageType()
         {
             try
             {
-                return Content("");
-
+                var qmqInHeader = _context.QMQ_IN_HEADERs
+                                                            .Select(p => p.MESSAGE_TYPE)
+                                                            .Distinct()
+                                                            .ToListAsync();
+                                                        
+                
+                return Json(qmqInHeader);
+                
             }
             catch (Exception ex)
             {
-                return StatusCode(500);
+                return Json(ex.Message);
             }
         }
 
@@ -112,60 +118,69 @@ namespace QMessage.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetDataQmqOutHeaderByMessageType(string MessageType, string dtIni,string dtFin  )
+        public JsonResult GetDataQmqOutHeaderByMessageType(string MessageType, string dtIni,string dtFin  )
         {
             try
             {
-                return Content("");
+                return Json("");
 
             }
             catch (Exception ex)
             {
-                return StatusCode(500);
+                return Json(ex.Message);
             }
         }
         [HttpGet]
-        public ActionResult GetMessageInBodyByMessageId(string MessageId)
+        public JsonResult GetMessageInBodyByMessageId(string MessageId)
         {
-            try
-            {
-                return Content("");
-
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500);
-            }
-        }
-
-        [HttpGet]
-        public ActionResult GetQmqOutHeaderMessageType()
-        {
-            try
-            {
+            try{
+                var qmqInBody = _context.QMQ_IN_BODies.Where( p => p.MESSAGE_ID == MessageId)
+                                                        .ToList();
             
-                return Content("");
 
+                return Json(qmqInBody);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                return StatusCode(500);
+                return Json(ex.Message);
             }
+             
         }
 
         [HttpGet]
-        public ActionResult GetMessageOutBodyByMessageId(string MessageId)
+        public JsonResult GetQmqOutHeaderMessageType()
+        {
+            try{
+                var qmqOutHeader =  _context.QMQ_OUT_HEADERs
+                                                            .Select(p => p.MESSAGE_TYPE)
+                                                            .Distinct()
+                                                            .ToListAsync();
+
+                return Json(qmqOutHeader);
+
+            }
+            catch(Exception ex)
+            {
+                return Json(ex.Message);
+            }                                            
+            
+        }
+
+        [HttpGet]
+        public JsonResult GetMessageOutBodyByMessageId(string MessageId)
         {
             try
             {
-                return Content("");
-
+                var qmqOutBody = _context.QMQ_OUT_BODies.Where( p => p.MESSAGE_ID == MessageId).ToList();
+                                        
+                return Json(qmqOutBody);
+            
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                return StatusCode(500);
+                return Json(ex.Message);
             }
-        }
 
+        }
     }
 }
