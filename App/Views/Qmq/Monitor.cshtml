@@ -6,26 +6,158 @@
 
 <h1>QMQ Monitor</h1>
 
+    <div class="card-header with-border">
+        <h5 class="card-title text-center">Mensagens de Entrada</h5>
+        <div class="card-tools">
+          <!--  <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
+                <i class="fas fa-minus"></i>
+            </button> -->
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-3">
+                <label>Mensagem</label>
+                <select name="MessageTypeQmqInHeader" id="MessageTypeQmqInHeader" class="form-control">
+                </select>
+            </div>
+            <div class="col-lg-3">
+                <label>De</label>
+                <input type="text" name="dtIni" id="dtIni" class="form-control data" />
+            </div>
+            <div class="col-lg-3">
+                <label>Até</label>
+                <input type="text" name="dtFin" id="dtFin" class="form-control data" />
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <button type="button" class="btn btn-primary pull-left" name="btnSearchMessageOut" id="btnSearchMessageOut">
+            <i class="fa fa-search"></i> Buscar
+        </button>
+        <button type="button" class="btn btn-default pull-right" name="btnCleanMessageOut" id="btnCleanMessageOut">
+            <i class="fa fa-recycle"></i> Limpar
+        </button>
+        <button type="button" class="btn btn-default pull-right updatePage" name="btnUpdatePageMessageOut" id="btnUpdatePageMessageOut">
+            <i class="fa fa-circle"></i> Atualizar página
+        </button>
+    </div>
+
+
 <table class="table">
     <thead>
         <tr>
             <th>
+                SOURCE
             </th>
             <th>
+                MESSAGE_ID
             </th>
             <th>
+                TARGET
             </th>
             <th>
+                MESSAGE_TYPE
             </th>
             <th>
+                EXPIRATION_TIME
             </th>
             <th>
+                REMARKS
             </th>
             <th>
+                MSG_STATUS
             </th>
             <th>
+                DATE_TIME_IN
             </th>
-            <th></th>
+            <th>
+                DATE_TIME_PROC
+            </th>
+            <th>
+                RETRY_COUNT
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+
+
+    <div class="card-header with-border">
+        <h5 class="card-title text-center">Mensagens de saída</h5>
+        <div class="card-tools">
+          <!--  <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
+                <i class="fas fa-minus"></i>
+            </button> -->
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-3">
+                <label>Mensagem</label>
+                <select name="MessageTypeQmqInHeader" id="MessageTypeQmqInHeader" class="form-control">
+                </select>
+            </div>
+            <div class="col-lg-3">
+                <label>De</label>
+                <input type="text" name="dtIni" id="dtIni" class="form-control data" />
+            </div>
+            <div class="col-lg-3">
+                <label>Até</label>
+                <input type="text" name="dtFin" id="dtFin" class="form-control data" />
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <button type="button" class="btn btn-primary pull-left" name="btnSearchMessageOut" id="btnSearchMessageOut">
+            <i class="fa fa-search"></i> Buscar
+        </button>
+        <button type="button" class="btn btn-default pull-right" name="btnCleanMessageOut" id="btnCleanMessageOut">
+            <i class="fa fa-recycle"></i> Limpar
+        </button>
+        <button type="button" class="btn btn-default pull-right updatePage" name="btnUpdatePageMessageOut" id="btnUpdatePageMessageOut">
+            <i class="fa fa-circle"></i> Atualizar página
+        </button>
+    </div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                SOURCE
+            </th>
+            <th>
+                MESSAGE_ID
+            </th>
+            <th>
+                TARGET
+            </th>
+            <th>
+                MESSAGE_TYPE
+            </th>
+            <th>
+                EXPIRATION_TIME
+            </th>
+            <th>
+                REMARKS
+            </th>
+            <th>
+                MSG_STATUS
+            </th>
+            <th>
+                DATE_TIME_IN
+            </th>
+            <th>
+                DATE_TIME_PROC
+            </th>
+            <th>
+                RETRY_COUNT
+            </th>
         </tr>
     </thead>
     <tbody>
