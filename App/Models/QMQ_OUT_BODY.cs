@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace QMessage.Models
 {
-    public partial class QMQ_OUT_BODY
+    public partial class QMQ_OUT_BODY: JqueryDataTablesParameters
     {
         public string SOURCE { get; set; }
         public string MESSAGE_ID { get; set; }

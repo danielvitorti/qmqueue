@@ -1,0 +1,45 @@
+@model IEnumerable<QMessage.Models.QMQ_IN_HEADER>
+
+@{
+    ViewData["Title"] = "Monitor";
+}
+
+<h1>QMQ Monitor</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+
+<input type="hidden" name="Index" id="Index" value="@Url.Action("Monitor","Qmq")" />
+<input type="hidden" name="GetQmqInHeaderMessageType" id="GetQmqInHeaderMessageType" value="@Url.Action("GetQmqInHeaderMessageType","Qmq")" />
+<input type="hidden" name="GetQmqOutHeaderMessageType" id="GetQmqOutHeaderMessageType" value="@Url.Action("GetQmqOutHeaderMessageType","Qmq")" />
+<input type="hidden" name="GetMessageInBodyByMessageId" id="GetMessageInBodyByMessageId" value="@Url.Action("GetMessageInBodyByMessageId","Qmq")" />
+<input type="hidden" name="GetDataQmqInHeaderByMessageType" id="GetDataQmqInHeaderByMessageType" value="@Url.Action("GetDataQmqInHeaderByMessageType","Qmq")" />
+<input type="hidden" name="GetDataQmqOutHeaderByMessageType" id="GetDataQmqOutHeaderByMessageType" value="@Url.Action("GetDataQmqOutHeaderByMessageType","Qmq")" />
+<input type="hidden" name="GetMessageOutBodyByMessageId" id="GetMessageOutBodyByMessageId" value="@Url.Action("GetMessageOutBodyByMessageId","Qmq")" />
+
+
+<script src="~/js/Qmq/Monitor.js"></script>

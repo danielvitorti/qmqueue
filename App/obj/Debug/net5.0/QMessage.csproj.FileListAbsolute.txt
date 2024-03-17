@@ -311,3 +311,5 @@ C:\projetos\net\QMessage\App\obj\Debug\net5.0\Razor\Views\QmqOutHeader\Delete.cs
 C:\projetos\net\QMessage\App\obj\Debug\net5.0\Razor\Views\QmqOutHeader\Details.cshtml.g.cs
 C:\projetos\net\QMessage\App\obj\Debug\net5.0\Razor\Views\QmqOutHeader\Edit.cshtml.g.cs
 C:\projetos\net\QMessage\App\obj\Debug\net5.0\Razor\Views\QmqOutHeader\Index.cshtml.g.cs
+C:\projetos\net\QMessage\App\obj\Debug\net5.0\Razor\Views\Qmq\Monitor.cshtml.g.cs
+C:\projetos\net\QMessage\App\obj\Debug\net5.0\Razor\Views\Qmq\_ModalMessageBody.cshtml.g.cs
