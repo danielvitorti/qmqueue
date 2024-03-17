@@ -1,0 +1,77 @@
+@model IEnumerable<QMessage.Models.QMQ_OUT_HEADER>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TARGET)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MESSAGE_TYPE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EXPIRATION_TIME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.REMARKS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MSG_STATUS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DATE_TIME_IN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DATE_TIME_PROC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RETRY_COUNT)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TARGET)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MESSAGE_TYPE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EXPIRATION_TIME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.REMARKS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MSG_STATUS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DATE_TIME_IN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DATE_TIME_PROC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RETRY_COUNT)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

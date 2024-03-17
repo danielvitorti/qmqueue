@@ -1,0 +1,66 @@
+@model QMessage.Models.QMQ_OUT_HEADER
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>QMQ_OUT_HEADER</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TARGET)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TARGET)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MESSAGE_TYPE)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MESSAGE_TYPE)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EXPIRATION_TIME)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EXPIRATION_TIME)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.REMARKS)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.REMARKS)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MSG_STATUS)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MSG_STATUS)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DATE_TIME_IN)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DATE_TIME_IN)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DATE_TIME_PROC)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DATE_TIME_PROC)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RETRY_COUNT)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RETRY_COUNT)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

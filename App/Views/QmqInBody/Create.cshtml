@@ -1,0 +1,51 @@
+@model QMessage.Models.QMQ_IN_BODY
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>QMQ_IN_BODY</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SOURCE" class="control-label"></label>
+                <select asp-for="SOURCE" class ="form-control" asp-items="ViewBag.SOURCE"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="MESSAGE_ID" class="control-label"></label>
+                <select asp-for="MESSAGE_ID" class ="form-control" asp-items="ViewBag.MESSAGE_ID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="FIELD_SEQ" class="control-label"></label>
+                <input asp-for="FIELD_SEQ" class="form-control" />
+                <span asp-validation-for="FIELD_SEQ" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FEATURE" class="control-label"></label>
+                <input asp-for="FEATURE" class="form-control" />
+                <span asp-validation-for="FEATURE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VALUE" class="control-label"></label>
+                <input asp-for="VALUE" class="form-control" />
+                <span asp-validation-for="VALUE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
