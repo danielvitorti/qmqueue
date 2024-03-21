@@ -87,9 +87,8 @@ namespace QMessage.Controllers
             try
             {
                 var qmqInHeader = _context.QMQ_IN_HEADERs
-                                                            .Select(p => p.MESSAGE_TYPE)
-                                                            .Distinct()
-                                                            .ToListAsync();
+                                                            .Select(p => new { p.MESSAGE_TYPE, p.MESSAGE_ID }).Distinct()
+                                                            .ToListAsync().Result;
                                                         
                 
                 return Json(qmqInHeader);
@@ -152,9 +151,9 @@ namespace QMessage.Controllers
         {
             try{
                 var qmqOutHeader =  _context.QMQ_OUT_HEADERs
-                                                            .Select(p => p.MESSAGE_TYPE)
+                                                            .Select(p => new { p.MESSAGE_TYPE, p.MESSAGE_ID })
                                                             .Distinct()
-                                                            .ToListAsync();
+                                                            .ToListAsync().Result;
 
                 return Json(qmqOutHeader);
 

@@ -1,7 +1,8 @@
 $(document).ready(function () {
     document.title = 'Qmq - Monitor';
 
-    $(".data").mask('99/99/9999 99:99:99');
+    //$(".data").mask('99/99/9999 99:99:99');
+    masks();
     GetQmqInHeaderMessageType();
     GetQmqOutHeaderMessageType();
 
@@ -105,11 +106,17 @@ function GetQmqInHeaderMessageType()
     var data = $("#MessageTypeQmqInHeader").val();
     $.ajax({
         type: 'GET',
-        dataType: 'html',
+        dataType: 'json',
         url: url,
         data: data,
-        success: function (response) {            
-            $("#MessageTypeQmqInHeader").html(response);            
+        success: function (response) {    
+            
+            var html = "<option value=''></option>";
+            $.each(response, function(indice, valor) {
+                
+                html +="<option value='"+valor.messagE_ID+"'>"+valor.messagE_TYPE+"</option>";
+            });
+            $("#MessageTypeQmqInHeader").html(html);            
         },
 
     }).done(function (response) {
@@ -129,11 +136,19 @@ function GetQmqOutHeaderMessageType()
     var data = null;
     $.ajax({
         type: 'GET',
-        dataType: 'html',
+        dataType: 'json',
         url: url,
         data: data,
         success: function (response) {        
-            $("#MessageOutType").html(response);
+
+            var html = "<option value=''></option>";
+            $.each(response, function(indice, valor) {
+                
+                html +="<option value='"+valor.messagE_ID+"'>"+valor.messagE_TYPE+"</option>";
+
+            });
+
+            $("#MessageTypeQmqOutHeader").html(html);
         },
 
     }).done(function (response) {
@@ -288,4 +303,28 @@ function createDataTable(tableName, paging = true, ordering = false) {
 
 function destroyDataTable(tableName) {
     $('#' + tableName).DataTable().destroy();
+}
+
+function masks(){
+
+    $('.data').on('input', function() {
+        var valor = $(this).val().replace(/\D/g, ''); // Remove todos os caracteres não numéricos
+        if (valor.length > 2) {
+          valor = valor.replace(/(\d{2})(\d)/, '$1/$2'); // Adiciona a barra após os dois primeiros números do dia
+        }
+        if (valor.length > 5) {
+          valor = valor.replace(/(\d{2})(\d{2})(\d)/, '$1/$2/$3'); // Adiciona as barras após o dia e o mês
+        }
+        if (valor.length > 10) {
+          valor = valor.replace(/(\d{2})(\d{2})(\d{4})(\d)/, '$1/$2/$3 $4'); // Adiciona o espaço após o ano
+        }
+        if (valor.length > 13) {
+          valor = valor.replace(/(\d{2})(\d{2})(\d{4}) (\d{2})(\d)/, '$1/$2/$3 $4:$5'); // Adiciona os dois pontos após a hora
+        }
+        if (valor.length > 16) {
+          valor = valor.replace(/(\d{2})(\d{2})(\d{4}) (\d{2})(\d{2})(\d)/, '$1/$2/$3 $4:$5:$6'); // Adiciona os dois pontos após os minutos
+        }
+        $(this).val(valor);
+      });
+
 }
