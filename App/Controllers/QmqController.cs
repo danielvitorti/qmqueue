@@ -18,63 +18,11 @@ namespace QMessage.Controllers
         {
             _context = context;
         }
-
-
-        /*
-
-
-         ***** FORMATO ABAIXO QUE DEVERA TRAZER OS DADOS PARA A DATATABLE *************
-
-            try
-            {                
-                //public IEnumerable<OutOfGaugeTCMViewModel> GetData(string Bobina, string Grau, string InfGrauAco, string InicioLaminacao, string FimLaminacao)
-                var coilListResult = outOfGaugeTCMAppService.GetData(param.Bobina,param.Grau,param.InfGrauAco,param.InicioLaminacao,param.FimLaminacao).ToList();
-
-                var displayResult = coilListResult.Skip(param.iDisplayStart).Take(param.iDisplayLength).ToList().OrderByDescending(p => p.FimLaminacao);
-                var totalRecords = coilListResult.Count();
-
-                logDataAppService.WebInfo(HttpContext.Session.GetString("UserLZC3"), $"Dados de fora de bitola carregados com sucesso. Action => {nameof(ConsultationsController)}/{nameof(GetDataOfOutOfGaugeTCM)}");
-
-                return Json(
-                    new
-                    {
-                        param.sEcho,
-                        iTotalRecords = totalRecords,
-                        iTotalDisplayRecords = totalRecords,
-                        aaData = displayResult
-                    });
-                
-            }
-            catch(Exception ex)
-            {
-                logDataAppService.WebError(HttpContext.Session.GetString("UserLZC3"), $"Erro ao carregar Sequencia de Producao. Action => {nameof(ConsultationsController)}/{nameof(GetDataOfOutOfGaugeTCM)} => {ex.Message}");
-                return Json(
-                    new
-                    {
-                    StatusCode = 500
-                    });
-            }        
-        
-        */
-
         
         public IActionResult Index()
         {
             return RedirectToAction("Monitor","Qmq");
         }
-
-
-        /*public IActionResult Monitor()
-        {
-            return View();
-        } */
-
-        // GET: QmqInHeader
-        /*public IActionResult Index()
-        {
-            return RedirectToAction("Monitor","Qmq");
-        }  */
-
 
         public IActionResult Monitor()
         {
@@ -87,8 +35,8 @@ namespace QMessage.Controllers
             try
             {
                 var qmqInHeader = _context.QMQ_IN_HEADERs
-                                                            .Select(p => new { p.MESSAGE_TYPE, p.MESSAGE_ID }).Distinct()
-                                                            .ToListAsync().Result;
+                                    .Select(p => new { p.MESSAGE_TYPE, p.MESSAGE_ID }).Distinct()
+                                    .ToListAsync().Result;
                                                         
                 
                 return Json(qmqInHeader);
@@ -102,33 +50,108 @@ namespace QMessage.Controllers
 
 
         [HttpGet]
-        public ActionResult GetDataQmqInHeaderByMessageType(string MessageType, string dtIni, string dtFin)
+        public JsonResult GetDataQmqInHeaderByMessageTypeAndPeriod(string MessageType, string dtIni, string dtFin)
         {
-            try
+           
+           try
             {
+                if(!string.IsNullOrEmpty(MessageType) || (!string.IsNullOrEmpty(dtIni) && !string.IsNullOrEmpty(dtFin) ))
+                {    
+                    
+                    var result = _context.QMQ_IN_HEADERs.Select(p => new { p.SOURCE, p.MESSAGE_ID,p.TARGET,p.MESSAGE_TYPE,
+                                                    p.EXPIRATION_TIME,p.REMARKS,p.MSG_STATUS,p.DATE_TIME_IN,p.DATE_TIME_PROC,p.RETRY_COUNT }).Distinct()
+                                                    .Where(p => p.MESSAGE_TYPE == MessageType) /*&& Convert.ToDateTime(p.DATE_TIME_IN) >= Convert.ToDateTime(dtIni) && 
+                                                    Convert.ToDateTime(p.DATE_TIME_IN) <= Convert.ToDateTime(dtFin)) */
+                                                    .ToListAsync().Result;
 
-                return Content("");
+                                                                
+                    return Json(
+                        result
+                    );  
+
+                }
+                else
+                {
+                    var result = _context.QMQ_IN_HEADERs.Select(p => new { p.SOURCE, p.MESSAGE_ID,p.TARGET,p.MESSAGE_TYPE,p.EXPIRATION_TIME,p.REMARKS,p.MSG_STATUS,p.DATE_TIME_IN,p.DATE_TIME_PROC,p.RETRY_COUNT }).Distinct()
+                                                    .ToListAsync().Result;
+
+                                
+                        return Json(
+                            result
+                        );
+                }
 
             }
             catch (Exception ex)
             {
-                return StatusCode(500);
+                return Json(500);
             }
         }
 
         [HttpGet]
-        public JsonResult GetDataQmqOutHeaderByMessageType(string MessageType, string dtIni,string dtFin  )
+        public JsonResult GetDataQmqOutHeaderByMessageTypeAndPeriod(string MessageType, string dtIni, string dtFin)
         {
             try
             {
-                return Json("");
+                if (!string.IsNullOrEmpty(MessageType) || (!string.IsNullOrEmpty(dtIni) && !string.IsNullOrEmpty(dtFin)))
+                {
+                    DateTime startDate = DateTime.MinValue;
+                    DateTime endDate = DateTime.MaxValue;
+                    if (!string.IsNullOrEmpty(dtIni))
+                        startDate = Convert.ToDateTime(dtIni);
+                    if (!string.IsNullOrEmpty(dtFin))
+                        endDate = Convert.ToDateTime(dtFin);
 
+                    var result = _context.QMQ_OUT_HEADERs
+                        .Where(p => p.MESSAGE_TYPE == MessageType &&
+                                    Convert.ToDateTime(p.DATE_TIME_IN) >= startDate &&
+                                    Convert.ToDateTime(p.DATE_TIME_IN) <= endDate)
+                        .Select(p => new
+                        {
+                            p.SOURCE,
+                            p.MESSAGE_ID,
+                            p.TARGET,
+                            p.MESSAGE_TYPE,
+                            p.EXPIRATION_TIME,
+                            p.REMARKS,
+                            p.MSG_STATUS,
+                            p.DATE_TIME_IN,
+                            p.DATE_TIME_PROC,
+                            p.RETRY_COUNT
+                        })
+                        .ToList();
+
+                    return Json(result);
+                }
+                else
+                {
+                    var result = _context.QMQ_OUT_HEADERs
+                        .Select(p => new
+                        {
+                            p.SOURCE,
+                            p.MESSAGE_ID,
+                            p.TARGET,
+                            p.MESSAGE_TYPE,
+                            p.EXPIRATION_TIME,
+                            p.REMARKS,
+                            p.MSG_STATUS,
+                            p.DATE_TIME_IN,
+                            p.DATE_TIME_PROC,
+                            p.RETRY_COUNT
+                        })
+                        .Distinct()
+                        .ToList();
+
+                    return Json(result);
+                }
             }
             catch (Exception ex)
             {
-                return Json(ex.Message);
+                return Json("erro");
             }
         }
+
+
         [HttpGet]
         public JsonResult GetMessageInBodyByMessageId(string MessageId)
         {

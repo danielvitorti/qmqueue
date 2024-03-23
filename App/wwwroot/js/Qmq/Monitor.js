@@ -8,8 +8,8 @@ $(document).ready(function () {
 
     $("#btnSearchMessageIn").click(function () {        
         var MessageTypeQmqInHeader = $("#MessageTypeQmqInHeader").val();
-        var dtIni = $("#dtIni").val();
-        var dtFin = $("#dtFin").val();
+        var dtIni = $("#dtIniIn").val();
+        var dtFin = $("#dtFinIn").val();
 
         GetDataQmqInHeaderByMessageTypeAndPeriod(MessageTypeQmqInHeader,dtIni,dtFin);
     });
@@ -48,19 +48,37 @@ $(document).ready(function () {
     });
 });
 
+// Estou trabalhando aqui 
 function GetDataQmqInHeaderByMessageTypeAndPeriod(MessageType, dtIni, dtFin)
 {
     
-    var url = $("#GetDataQmqInHeaderByMessageType").val();
+    var url = $("#GetDataQmqInHeaderByMessageTypeAndPeriod").val();
     var data = "MessageType=" + MessageType + "&dtIni=" + dtIni + "&dtFin=" + dtFin;
     $.ajax({
         type: 'GET',
-        dataType: 'html',
+        dataType: 'json',
         url: url,
         data: data,
         success: function (response) {
-            $("#tbMessageInBody").html(response);
-            createDataTable("tbMessageInBody");
+            var $tableBody = $('#dataTableMessageIn tbody');
+            $("#dataTableMessageIn tbody").html("");    
+            $.each(response, function(index, data) {
+                var $row = $('<tr>');
+                $row.append($('<td>').text(data.source));
+                $row.append($('<td>').text(data.messagE_ID));
+                $row.append($('<td>').text(data.target));
+                $row.append($('<td>').text(data.messagE_TYPE));
+                $row.append($('<td>').text(data.expiratioN_TIME));
+                $row.append($('<td>').text(data.remarks));
+                $row.append($('<td>').text(data.msG_STATUS));
+                $row.append($('<td>').text(data.datE_TIME_IN));
+                $row.append($('<td>').text(data.datE_TIME_PROC));
+                $row.append($('<td>').text(data.retrY_COUNT));
+                $tableBody.append($row);
+            });
+            //console.log(response);
+            //$("#tbMessageInBody").html(response);
+            //createDataTable("tbMessageInBody");
         },
 
     }).done(function (response) {
@@ -69,6 +87,7 @@ function GetDataQmqInHeaderByMessageTypeAndPeriod(MessageType, dtIni, dtFin)
         console.log("Request failed: " + textStatus);
         //$("#modal-loading").modal('hide');
         console.log("Ocorreu um erro!");
+        alertify.alert("Request failed: " + textStatus);
     }).always(function () {
         //$("#modal-loading").modal('hide');
     });
@@ -76,16 +95,33 @@ function GetDataQmqInHeaderByMessageTypeAndPeriod(MessageType, dtIni, dtFin)
 
 function GetDataQmqOutHeaderByMessageTypeAndPeriod(MessageType, dtIni, dtFin)
 {
-    var url = $("#GetDataQmqOutHeaderByMessageType").val();
+    var url = $("#GetDataQmqOutHeaderByMessageTypeAndPeriod").val();
     var data = "MessageType=" + MessageType +"&dtIni="+dtIni+"&dtFin="+dtFin;
     $.ajax({
         type: 'GET',
-        dataType: 'html',
+        dataType: 'json',
         url: url,
         data: data,
         success: function (response) {
-            $("#tbMessageOutBody").html(response);
-            createDataTable("tbMessageOutBody");
+            
+            var $tableBody = $('#dataTableMessageOut tbody');
+            $("#dataTableMessageOut tbody").html("");
+            $.each(response, function(index, data) {
+                var $row = $('<tr>');
+                $row.append($('<td>').text(data.source));
+                $row.append($('<td>').text(data.messagE_ID));
+                $row.append($('<td>').text(data.target));
+                $row.append($('<td>').text(data.messagE_TYPE));
+                $row.append($('<td>').text(data.expiratioN_TIME));
+                $row.append($('<td>').text(data.remarks));
+                $row.append($('<td>').text(data.msG_STATUS));
+                $row.append($('<td>').text(data.datE_TIME_IN));
+                $row.append($('<td>').text(data.datE_TIME_PROC));
+                $row.append($('<td>').text(data.retrY_COUNT));
+                $tableBody.append($row);
+            });
+            //$("#tbMessageOutBody").html(response);
+            //createDataTable("tbMessageOutBody");
         },
 
     }).done(function (response) {
@@ -307,24 +343,39 @@ function destroyDataTable(tableName) {
 
 function masks(){
 
-    $('.data').on('input', function() {
-        var valor = $(this).val().replace(/\D/g, ''); // Remove todos os caracteres não numéricos
-        if (valor.length > 2) {
-          valor = valor.replace(/(\d{2})(\d)/, '$1/$2'); // Adiciona a barra após os dois primeiros números do dia
-        }
-        if (valor.length > 5) {
-          valor = valor.replace(/(\d{2})(\d{2})(\d)/, '$1/$2/$3'); // Adiciona as barras após o dia e o mês
-        }
-        if (valor.length > 10) {
-          valor = valor.replace(/(\d{2})(\d{2})(\d{4})(\d)/, '$1/$2/$3 $4'); // Adiciona o espaço após o ano
-        }
-        if (valor.length > 13) {
-          valor = valor.replace(/(\d{2})(\d{2})(\d{4}) (\d{2})(\d)/, '$1/$2/$3 $4:$5'); // Adiciona os dois pontos após a hora
-        }
-        if (valor.length > 16) {
-          valor = valor.replace(/(\d{2})(\d{2})(\d{4}) (\d{2})(\d{2})(\d)/, '$1/$2/$3 $4:$5:$6'); // Adiciona os dois pontos após os minutos
-        }
-        $(this).val(valor);
-      });
+    //$(".data").inputmask('dd/mm/yyyy hh:mm:ss');
 
+    $('.data').on('input', function() {
+        var inputValue = $(this).val();
+        var numericValue = inputValue.replace(/[^\d]/g, '');
+        var formattedValue = '';
+
+        // Se o último caractere for backspace, permita a exclusão do último caractere
+        if (inputValue.slice(-1) === '/') {
+            numericValue = numericValue.slice(0, -1);
+        } else if (inputValue.slice(-1) === ' ') {
+            numericValue = numericValue.slice(0, -1);
+        } else if (inputValue.slice(-1) === ':') {
+            numericValue = numericValue.slice(0, -1);
+        }
+
+        // Formato: DD/MM/YYYY HH:MM
+        if (numericValue.length > 0) {
+            formattedValue = numericValue.substr(0, 2);
+            if (numericValue.length >= 2) {
+                formattedValue += '/' + numericValue.substr(2, 2);
+            }
+            if (numericValue.length >= 4) {
+                formattedValue += '/' + numericValue.substr(4, 4);
+            }
+            if (numericValue.length >= 8) {
+                formattedValue += ' ' + numericValue.substr(8, 2);
+            }
+            if (numericValue.length >= 10) {
+                formattedValue += ':' + numericValue.substr(10, 2);
+            }
+        }
+        $(this).val(formattedValue);
+    });
+ 
 }

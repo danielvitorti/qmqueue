@@ -24,28 +24,28 @@
             </div>
             <div class="col-lg-3">
                 <label>De</label>
-                <input type="text" name="dtIni" id="dtIni" class="form-control data" />
+                <input type="text" name="dtIniIn" id="dtIniIn" class="form-control data" />
             </div>
             <div class="col-lg-3">
                 <label>Até</label>
-                <input type="text" name="dtFin" id="dtFin" class="form-control data" />
+                <input type="text" name="dtFinIn" id="dtFinIn" class="form-control data" />
             </div>
         </div>
     </div>
     <div class="card-footer">
-        <button type="button" class="btn btn-primary pull-left" name="btnSearchMessageOut" id="btnSearchMessageOut">
+        <button type="button" class="btn btn-primary pull-left" name="btnSearchMessageIn" id="btnSearchMessageIn">
             <i class="fa fa-search"></i> Buscar
         </button>
-        <button type="button" class="btn btn-default pull-right" name="btnCleanMessageOut" id="btnCleanMessageOut">
+        <button type="button" class="btn btn-default pull-right" name="btnCleanMessageIn" id="btnCleanMessageIn">
             <i class="fa fa-recycle"></i> Limpar
         </button>
-        <button type="button" class="btn btn-default pull-right updatePage" name="btnUpdatePageMessageOut" id="btnUpdatePageMessageOut">
+        <button type="button" class="btn btn-default pull-right updatePage" name="updatePage" id="updatePage">
             <i class="fa fa-circle"></i> Atualizar página
         </button>
     </div>
 
 
-<table class="table">
+<table class="table" id="dataTableMessageIn">
     <thead>
         <tr>
             <th>
@@ -104,11 +104,11 @@
             </div>
             <div class="col-lg-3">
                 <label>De</label>
-                <input type="text" name="dtIni" id="dtIni" class="form-control data" />
+                <input type="text" name="dtIniOut" id="dtIniOut" class="form-control data" />
             </div>
             <div class="col-lg-3">
                 <label>Até</label>
-                <input type="text" name="dtFin" id="dtFin" class="form-control data" />
+                <input type="text" name="dtFinOut" id="dtFinOut" class="form-control data" />
             </div>
         </div>
     </div>
@@ -120,12 +120,12 @@
         <button type="button" class="btn btn-default pull-right" name="btnCleanMessageOut" id="btnCleanMessageOut">
             <i class="fa fa-recycle"></i> Limpar
         </button>
-        <button type="button" class="btn btn-default pull-right updatePage" name="btnUpdatePageMessageOut" id="btnUpdatePageMessageOut">
+        <button type="button" class="btn btn-default pull-right updatePage" name="btnMessageOut" id="btnMessageOut">
             <i class="fa fa-circle"></i> Atualizar página
         </button>
     </div>
 
-<table class="table">
+<table class="table" id="dataTableMessageOut">
     <thead>
         <tr>
             <th>
@@ -169,8 +169,8 @@
 <input type="hidden" name="GetQmqInHeaderMessageType" id="GetQmqInHeaderMessageType" value="@Url.Action("GetQmqInHeaderMessageType","Qmq")" />
 <input type="hidden" name="GetQmqOutHeaderMessageType" id="GetQmqOutHeaderMessageType" value="@Url.Action("GetQmqOutHeaderMessageType","Qmq")" />
 <input type="hidden" name="GetMessageInBodyByMessageId" id="GetMessageInBodyByMessageId" value="@Url.Action("GetMessageInBodyByMessageId","Qmq")" />
-<input type="hidden" name="GetDataQmqInHeaderByMessageType" id="GetDataQmqInHeaderByMessageType" value="@Url.Action("GetDataQmqInHeaderByMessageType","Qmq")" />
-<input type="hidden" name="GetDataQmqOutHeaderByMessageType" id="GetDataQmqOutHeaderByMessageType" value="@Url.Action("GetDataQmqOutHeaderByMessageType","Qmq")" />
+<input type="hidden" name="GetDataQmqInHeaderByMessageTypeAndPeriod" id="GetDataQmqInHeaderByMessageTypeAndPeriod" value="@Url.Action("GetDataQmqInHeaderByMessageTypeAndPeriod","Qmq")" />
+<input type="hidden" name="GetDataQmqOutHeaderByMessageTypeAndPeriod" id="GetDataQmqOutHeaderByMessageTypeAndPeriod" value="@Url.Action("GetDataQmqOutHeaderByMessageTypeAndPeriod","Qmq")" />
 <input type="hidden" name="GetMessageOutBodyByMessageId" id="GetMessageOutBodyByMessageId" value="@Url.Action("GetMessageOutBodyByMessageId","Qmq")" />
 
 
