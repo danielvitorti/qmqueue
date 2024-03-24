@@ -84,7 +84,7 @@ namespace QMessage.Controllers
             }
             catch (Exception ex)
             {
-                return Json(500);
+                return Json("erro");
             }
         }
 
@@ -97,15 +97,15 @@ namespace QMessage.Controllers
                 {
                     DateTime startDate = DateTime.MinValue;
                     DateTime endDate = DateTime.MaxValue;
-                    if (!string.IsNullOrEmpty(dtIni))
+                    /*if (!string.IsNullOrEmpty(dtIni))
                         startDate = Convert.ToDateTime(dtIni);
                     if (!string.IsNullOrEmpty(dtFin))
-                        endDate = Convert.ToDateTime(dtFin);
+                        endDate = Convert.ToDateTime(dtFin); */
 
                     var result = _context.QMQ_OUT_HEADERs
-                        .Where(p => p.MESSAGE_TYPE == MessageType &&
-                                    Convert.ToDateTime(p.DATE_TIME_IN) >= startDate &&
-                                    Convert.ToDateTime(p.DATE_TIME_IN) <= endDate)
+                        .Where(p => p.MESSAGE_TYPE == MessageType )//&&
+                                   // Convert.ToDateTime(p.DATE_TIME_IN) >= startDate &&
+                                   // Convert.ToDateTime(p.DATE_TIME_IN) <= endDate)
                         .Select(p => new
                         {
                             p.SOURCE,
@@ -147,7 +147,7 @@ namespace QMessage.Controllers
             }
             catch (Exception ex)
             {
-                return Json("erro");
+                return Json(ex.Message);
             }
         }
 

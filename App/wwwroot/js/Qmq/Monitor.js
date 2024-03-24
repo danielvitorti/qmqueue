@@ -15,7 +15,7 @@ $(document).ready(function () {
     });
 
     $("#btnSearchMessageOut").click(function () {
-        var MessageTypeQmqOutHeader = $("#MessageOutType").val();
+        var MessageTypeQmqOutHeader = $("#MessageTypeQmqOutHeader").val();
         var dtIniOut = $("#dtIniOut").val();
         var dtFinOut = $("#dtFinOut").val();
 
@@ -96,6 +96,7 @@ function GetDataQmqInHeaderByMessageTypeAndPeriod(MessageType, dtIni, dtFin)
 function GetDataQmqOutHeaderByMessageTypeAndPeriod(MessageType, dtIni, dtFin)
 {
     var url = $("#GetDataQmqOutHeaderByMessageTypeAndPeriod").val();
+    
     var data = "MessageType=" + MessageType +"&dtIni="+dtIni+"&dtFin="+dtFin;
     $.ajax({
         type: 'GET',
@@ -103,7 +104,6 @@ function GetDataQmqOutHeaderByMessageTypeAndPeriod(MessageType, dtIni, dtFin)
         url: url,
         data: data,
         success: function (response) {
-            
             var $tableBody = $('#dataTableMessageOut tbody');
             $("#dataTableMessageOut tbody").html("");
             $.each(response, function(index, data) {
@@ -120,8 +120,7 @@ function GetDataQmqOutHeaderByMessageTypeAndPeriod(MessageType, dtIni, dtFin)
                 $row.append($('<td>').text(data.retrY_COUNT));
                 $tableBody.append($row);
             });
-            //$("#tbMessageOutBody").html(response);
-            //createDataTable("tbMessageOutBody");
+          
         },
 
     }).done(function (response) {
@@ -150,7 +149,7 @@ function GetQmqInHeaderMessageType()
             var html = "<option value=''></option>";
             $.each(response, function(indice, valor) {
                 
-                html +="<option value='"+valor.messagE_ID+"'>"+valor.messagE_TYPE+"</option>";
+                html +="<option value='"+valor.messagE_TYPE+"'>"+valor.messagE_TYPE+"</option>";
             });
             $("#MessageTypeQmqInHeader").html(html);            
         },
@@ -179,9 +178,7 @@ function GetQmqOutHeaderMessageType()
 
             var html = "<option value=''></option>";
             $.each(response, function(indice, valor) {
-                
-                html +="<option value='"+valor.messagE_ID+"'>"+valor.messagE_TYPE+"</option>";
-
+                html +="<option value='"+valor.messagE_TYPE+"'>"+valor.messagE_TYPE+"</option>";
             });
 
             $("#MessageTypeQmqOutHeader").html(html);
