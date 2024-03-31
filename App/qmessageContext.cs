@@ -19,10 +19,10 @@ namespace QMessage
         }
 
         //public virtual DbSet<qmqdb> QMQDbs { get; set; }
-        public virtual DbSet<QMQ_IN_BODY> QMQ_IN_BODies { get; set; }
-        public virtual DbSet<QMQ_IN_HEADER> QMQ_IN_HEADERs { get; set; }
-        public virtual DbSet<QMQ_OUT_BODY> QMQ_OUT_BODies { get; set; }
-        public virtual DbSet<QMQ_OUT_HEADER> QMQ_OUT_HEADERs { get; set; }
+        public virtual DbSet<MENSAGEM_ENTRADA_CABECALHO> mensagemEntradaCabecalho { get; set; }
+        public virtual DbSet<MENSAGEM_ENTRADA_CORPO> mensagemEntradaCorpo { get; set; }
+        public virtual DbSet<MENSAGEM_SAIDA_CORPO> mensagemSaidaCorpo { get; set; }
+        public virtual DbSet<MENSAGEM_SAIDA_CABECALHO> mensagemSaidaCabecalho { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -35,79 +35,62 @@ namespace QMessage
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            /*modelBuilder.Entity<QMQDb>(entity =>
+            
+            modelBuilder.Entity<MENSAGEM_ENTRADA_CORPO>(entity =>
             {
-                entity.HasKey(e => new { e.Telegramm, e.FieldSeq, e.Feature });
+                entity.HasKey(e => new { e.SISTEMA_ORIGEM, e.ID_MENSAGEM, e.SEQUENCIAL });
 
-                entity.ToTable("QMQDb");
+                entity.ToTable("MENSAGEM_ENTRADA_CORPO");
 
-                entity.Property(e => e.Telegramm).HasColumnType("VARCHAR(50)");
+                entity.Property(e => e.CAMPO).HasColumnType("CHAR(40)");
 
-                entity.Property(e => e.Feature).HasColumnType("VARCHAR(50)");
+                entity.Property(e => e.VALOR).HasColumnType("VARCHAR(1000)");
 
-                entity.Property(e => e.ColumnName).HasColumnType("VARCHAR(50)");
-
-                entity.Property(e => e.Factor).HasColumnType("VARCHAR(50)");
-
-                entity.Property(e => e.TableName).HasColumnType("VARCHAR(50)");
-
-                entity.Property(e => e.Type).HasColumnType("VARCHAR(20)");
-            }); */
-
-            modelBuilder.Entity<QMQ_IN_BODY>(entity =>
-            {
-                entity.HasKey(e => new { e.SOURCE, e.MESSAGE_ID, e.FIELD_SEQ });
-
-                entity.ToTable("QMQ_IN_BODY");
-
-                entity.Property(e => e.FEATURE).HasColumnType("CHAR(40)");
-
-                entity.Property(e => e.VALUE).HasColumnType("VARCHAR(1000)");
-
-                entity.HasOne(d => d.QMQ_IN_HEADER)
-                    .WithMany(p => p.QMQ_IN_BODies)
-                    .HasForeignKey(d => new { d.SOURCE, d.MESSAGE_ID })
+                entity.HasOne(d => d.mensagemEntradaCabecalho)
+                    .WithMany(p => p.mensagemEntradaCorpo)
+                    .HasForeignKey(d => new { d.SISTEMA_ORIGEM, d.ID_MENSAGEM })
                     .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
             
-            modelBuilder.Entity<QMQ_IN_HEADER>(entity =>
+            modelBuilder.Entity<MENSAGEM_ENTRADA_CABECALHO>(entity =>
             {
-                entity.HasKey(e => new { e.SOURCE, e.MESSAGE_ID });
+                entity.HasKey(e => new { e.SISTEMA_ORIGEM, e.ID_MENSAGEM });
 
-                entity.ToTable("QMQ_IN_HEADER");
+                entity.ToTable("MENSAGEM_ENTRADA_CABECALHO");
 
-                entity.Property(e => e.MSG_STATUS).HasColumnType("CHAR(1)");
+                entity.Property(e => e.STATUS).HasColumnType("CHAR(1)");
 
-                entity.Property(e => e.REMARKS).HasColumnType("VARCHAR(40)");
+                entity.Property(e => e.OBSERVACAO).HasColumnType("VARCHAR(40)");
             });
 
-            modelBuilder.Entity<QMQ_OUT_BODY>(entity =>
+            modelBuilder.Entity<MENSAGEM_SAIDA_CORPO>(entity =>
             {
-                entity.HasKey(e => new { e.SOURCE, e.MESSAGE_ID, e.FIELD_SEQ });
+                entity.HasKey(e => new { e.SISTEMA_ORIGEM, e.ID_MENSAGEM, e.SEQUENCIAL });
 
-                entity.ToTable("QMQ_OUT_BODY");
+                entity.ToTable("MENSAGEM_SAIDA_CORPO");
 
-                entity.Property(e => e.FEATURE).HasColumnType("CHAR(40)");
+                entity.Property(e => e.CAMPO).HasColumnType("CHAR(40)");
 
-                entity.Property(e => e.VALUE).HasColumnType("VARCHAR(1000)");
+                entity.Property(e => e.VALOR).HasColumnType("VARCHAR(1000)");
 
-                entity.HasOne(d => d.QMQ_OUT_HEADER)
-                    .WithMany(p => p.QMQ_OUT_BODies)
-                    .HasForeignKey(d => new { d.SOURCE, d.MESSAGE_ID })
+                entity.HasOne(d => d.mensagemSaidaCabecalho)
+
+                    .WithMany(p => p.mensagemSaidaCorpo)
+                    .HasForeignKey(d => new { d.SISTEMA_ORIGEM, d.ID_MENSAGEM })
                     .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
             
-            modelBuilder.Entity<QMQ_OUT_HEADER>(entity =>
+            modelBuilder.Entity<MENSAGEM_SAIDA_CABECALHO>(entity =>
             {
-                entity.HasKey(e => new { e.SOURCE, e.MESSAGE_ID });
+                entity.HasKey(e => new { e.SISTEMA_DESTINO, e.ID_MENSAGEM });
 
-                entity.ToTable("QMQ_OUT_HEADER");
+                entity.ToTable("MENSAGEM_SAIDA_CABECALHO");
 
-                entity.Property(e => e.MSG_STATUS).HasColumnType("CHAR(1)");
+                entity.Property(e => e.STATUS).HasColumnType("CHAR(1)");
 
-                entity.Property(e => e.REMARKS).HasColumnType("VARCHAR(40)");
+                entity.Property(e => e.OBSERVACAO).HasColumnType("VARCHAR(40)");
             });
 
             OnModelCreatingPartial(modelBuilder);
@@ -115,13 +98,13 @@ namespace QMessage
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-        public DbSet<QMessage.Models.QMQ_IN_HEADER> QmqInHeader { get; set; }
+        public DbSet<QMessage.Models.MENSAGEM_ENTRADA_CABECALHO> MensagemEntradaCabecalho { get; set; }
 
-        public DbSet<QMessage.Models.QMQ_IN_BODY> QmqInBody { get; set; }
+        public DbSet<QMessage.Models.MENSAGEM_ENTRADA_CORPO> MensagemEntradaCorpo { get; set; }
 
-        public DbSet<QMessage.Models.QMQ_OUT_HEADER> QmqOutHeader { get; set; }
+        public DbSet<QMessage.Models.MENSAGEM_SAIDA_CABECALHO> MensagemSaidaCabecalho { get; set; }
 
-        public DbSet<QMessage.Models.QMQ_OUT_BODY> QmqOutBody { get; set; }
+        public DbSet<QMessage.Models.MENSAGEM_SAIDA_CORPO> MensagemSaidaCorpo { get; set; }
         
     }
 }

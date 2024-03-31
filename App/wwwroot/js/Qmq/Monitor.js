@@ -64,16 +64,13 @@ function GetDataQmqInHeaderByMessageTypeAndPeriod(MessageType, dtIni, dtFin)
             $("#dataTableMessageIn tbody").html("");    
             $.each(response, function(index, data) {
                 var $row = $('<tr>');
-                $row.append($('<td>').text(data.source));
-                $row.append($('<td>').text(data.messagE_ID));
-                $row.append($('<td>').text(data.target));
-                $row.append($('<td>').text(data.messagE_TYPE));
-                $row.append($('<td>').text(data.expiratioN_TIME));
-                $row.append($('<td>').text(data.remarks));
-                $row.append($('<td>').text(data.msG_STATUS));
-                $row.append($('<td>').text(data.datE_TIME_IN));
-                $row.append($('<td>').text(data.datE_TIME_PROC));
-                $row.append($('<td>').text(data.retrY_COUNT));
+                $row.append($('<td>').text(data.sistemaOrigem));
+                $row.append($('<td>').text(data.idMensagem));
+                $row.append($('<td>').text(data.sistemaDestino));
+                $row.append($('<td>').text(data.codigoMensagem));
+                $row.append($('<td>').text(data.observacao));
+                $row.append($('<td>').text(data.status));
+                $row.append($('<td>').text(data.dataProcessamento));
                 $tableBody.append($row);
             });
             //console.log(response);
@@ -108,16 +105,14 @@ function GetDataQmqOutHeaderByMessageTypeAndPeriod(MessageType, dtIni, dtFin)
             $("#dataTableMessageOut tbody").html("");
             $.each(response, function(index, data) {
                 var $row = $('<tr>');
-                $row.append($('<td>').text(data.source));
-                $row.append($('<td>').text(data.messagE_ID));
-                $row.append($('<td>').text(data.target));
-                $row.append($('<td>').text(data.messagE_TYPE));
-                $row.append($('<td>').text(data.expiratioN_TIME));
-                $row.append($('<td>').text(data.remarks));
-                $row.append($('<td>').text(data.msG_STATUS));
-                $row.append($('<td>').text(data.datE_TIME_IN));
-                $row.append($('<td>').text(data.datE_TIME_PROC));
-                $row.append($('<td>').text(data.retrY_COUNT));
+                $row.append($('<td>').text(data.sistemaOrigem));
+                $row.append($('<td>').text(data.idMensagem));
+                $row.append($('<td>').text(data.sistemaDestino));
+                $row.append($('<td>').text(data.codigoMensagem));
+                $row.append($('<td>').text(data.observacao));
+                $row.append($('<td>').text(data.status));
+                $row.append($('<td>').text(data.dataProcessamento));
+                
                 $tableBody.append($row);
             });
           

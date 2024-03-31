@@ -34,8 +34,8 @@ namespace QMessage.Controllers
         {
             try
             {
-                var qmqInHeader = _context.QMQ_IN_HEADERs
-                                    .Select(p => new { p.MESSAGE_TYPE, p.MESSAGE_ID }).Distinct()
+                var qmqInHeader = _context.mensagemEntradaCabecalho
+                                    .Select(p => new { p.CODIGO_MENSAGEM, p.ID_MENSAGEM }).Distinct()
                                     .ToListAsync().Result;
                                                         
                 
@@ -58,10 +58,10 @@ namespace QMessage.Controllers
                 if(!string.IsNullOrEmpty(MessageType) || (!string.IsNullOrEmpty(dtIni) && !string.IsNullOrEmpty(dtFin) ))
                 {    
                     
-                    var result = _context.QMQ_IN_HEADERs.Select(p => new { p.SOURCE, p.MESSAGE_ID,p.TARGET,p.MESSAGE_TYPE,
-                                        p.EXPIRATION_TIME,p.REMARKS,p.MSG_STATUS,p.DATE_TIME_IN,p.DATE_TIME_PROC,p.RETRY_COUNT }).Distinct()
-                                        .Where(p => p.MESSAGE_TYPE == MessageType && Convert.ToDateTime(p.DATE_TIME_IN) >= Convert.ToDateTime(dtIni) && 
-                                        Convert.ToDateTime(p.DATE_TIME_IN) <= Convert.ToDateTime(dtFin)) 
+                    var result = _context.mensagemEntradaCabecalho.Select(p => new { p.SISTEMA_ORIGEM, p.ID_MENSAGEM,p.SISTEMA_DESTINO,p.CODIGO_MENSAGEM
+                                        ,p.OBSERVACAO,p.STATUS,p.DATA_PROCESSAMENTO}).Distinct()
+                                        .Where(p => p.CODIGO_MENSAGEM == MessageType && Convert.ToDateTime(p.DATA_PROCESSAMENTO) >= Convert.ToDateTime(dtIni) && 
+                                        Convert.ToDateTime(p.DATA_PROCESSAMENTO) <= Convert.ToDateTime(dtFin)) 
                                         .ToListAsync().Result;
                                                                 
                     return Json(
@@ -71,7 +71,7 @@ namespace QMessage.Controllers
                 }
                 else
                 {
-                    var result = _context.QMQ_IN_HEADERs.Select(p => new { p.SOURCE, p.MESSAGE_ID,p.TARGET,p.MESSAGE_TYPE,p.EXPIRATION_TIME,p.REMARKS,p.MSG_STATUS,p.DATE_TIME_IN,p.DATE_TIME_PROC,p.RETRY_COUNT }).Distinct()
+                    var result = _context.mensagemEntradaCabecalho.Select(p => new { p.SISTEMA_ORIGEM, p.ID_MENSAGEM,p.SISTEMA_DESTINO,p.CODIGO_MENSAGEM,p.OBSERVACAO,p.STATUS,p.DATA_PROCESSAMENTO }).Distinct()
                                                     .ToListAsync().Result;
 
                                 
@@ -101,19 +101,16 @@ namespace QMessage.Controllers
                     if (!string.IsNullOrEmpty(dtFin))
                         endDate = Convert.ToDateTime(dtFin); 
 
-                    var result = _context.QMQ_OUT_HEADERs
-                                .Where(p => p.MESSAGE_TYPE == MessageType && Convert.ToDateTime(p.DATE_TIME_IN) >= startDate && Convert.ToDateTime(p.DATE_TIME_IN) <= endDate)
+                    var result = _context.mensagemSaidaCabecalho
+                                .Where(p => p.CODIGO_MENSAGEM == MessageType && Convert.ToDateTime(p.DATA_PROCESSAMENTO) >= startDate && Convert.ToDateTime(p.DATA_PROCESSAMENTO) <= endDate)
                                 .Select(p => new {
-                                    p.SOURCE,
-                                    p.MESSAGE_ID,
-                                    p.TARGET,
-                                    p.MESSAGE_TYPE,
-                                    p.EXPIRATION_TIME,
-                                    p.REMARKS,
-                                    p.MSG_STATUS,
-                                    p.DATE_TIME_IN,
-                                    p.DATE_TIME_PROC,
-                                    p.RETRY_COUNT
+                                    p.SISTEMA_ORIGEM,
+                                    p.ID_MENSAGEM,
+                                    p.SISTEMA_DESTINO,
+                                    p.CODIGO_MENSAGEM,
+                                    p.OBSERVACAO,
+                                    p.STATUS,
+                                    p.DATA_PROCESSAMENTO
                                 })
                                 .ToList();
 
@@ -121,19 +118,15 @@ namespace QMessage.Controllers
                 }
                 else
                 {
-                    var result = _context.QMQ_OUT_HEADERs
+                    var result = _context.mensagemSaidaCabecalho
                         .Select(p => new
                         {
-                            p.SOURCE,
-                            p.MESSAGE_ID,
-                            p.TARGET,
-                            p.MESSAGE_TYPE,
-                            p.EXPIRATION_TIME,
-                            p.REMARKS,
-                            p.MSG_STATUS,
-                            p.DATE_TIME_IN,
-                            p.DATE_TIME_PROC,
-                            p.RETRY_COUNT
+                            p.SISTEMA_ORIGEM,
+                            p.ID_MENSAGEM,
+                            p.SISTEMA_DESTINO,
+                            p.CODIGO_MENSAGEM,
+                            p.DATA_PROCESSAMENTO
+                    
                         })
                         .Distinct()
                         .ToList();
@@ -152,7 +145,7 @@ namespace QMessage.Controllers
         public JsonResult GetMessageInBodyByMessageId(string MessageId)
         {
             try{
-                var qmqInBody = _context.QMQ_IN_BODies.Where( p => p.MESSAGE_ID == MessageId)
+                var qmqInBody = _context.mensagemEntradaCorpo.Where( p => p.ID_MENSAGEM == MessageId)
                                                         .ToList();
             
 
@@ -169,8 +162,8 @@ namespace QMessage.Controllers
         public JsonResult GetQmqOutHeaderMessageType()
         {
             try{
-                var qmqOutHeader =  _context.QMQ_OUT_HEADERs
-                                                            .Select(p => new { p.MESSAGE_TYPE, p.MESSAGE_ID })
+                var qmqOutHeader =  _context.mensagemSaidaCabecalho
+                                                            .Select(p => new { p.CODIGO_MENSAGEM, p.ID_MENSAGEM })
                                                             .Distinct()
                                                             .ToListAsync().Result;
 
@@ -189,7 +182,7 @@ namespace QMessage.Controllers
         {
             try
             {
-                var qmqOutBody = _context.QMQ_OUT_BODies.Where( p => p.MESSAGE_ID == MessageId).ToList();
+                var qmqOutBody = _context.mensagemSaidaCorpo.Where( p => p.ID_MENSAGEM == MessageId).ToList();
                                         
                 return Json(qmqOutBody);
             
