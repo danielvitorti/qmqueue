@@ -20,14 +20,8 @@ namespace QMessage
 
         //public virtual DbSet<qmqdb> QMQDbs { get; set; }
         public virtual DbSet<QMQ_IN_BODY> QMQ_IN_BODies { get; set; }
-        public virtual DbSet<QMQ_IN_BODY_H> QMQ_IN_BODY_Hs { get; set; }
-        public virtual DbSet<QMQ_IN_ERRORLOG> QMQ_IN_ERRORLOGs { get; set; }
-        public virtual DbSet<QMQ_IN_ERRORLOG_H> QMQ_IN_ERRORLOG_Hs { get; set; }
         public virtual DbSet<QMQ_IN_HEADER> QMQ_IN_HEADERs { get; set; }
         public virtual DbSet<QMQ_OUT_BODY> QMQ_OUT_BODies { get; set; }
-        public virtual DbSet<QMQ_OUT_BODY_H> QMQ_OUT_BODY_Hs { get; set; }
-        public virtual DbSet<QMQ_OUT_ERRORLOG> QMQ_OUT_ERRORLOGs { get; set; }
-        public virtual DbSet<QMQ_OUT_ERRORLOG_H> QMQ_OUT_ERRORLOG_Hs { get; set; }
         public virtual DbSet<QMQ_OUT_HEADER> QMQ_OUT_HEADERs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -76,50 +70,7 @@ namespace QMessage
                     .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
-            modelBuilder.Entity<QMQ_IN_BODY_H>(entity =>
-            {
-                entity.HasKey(e => new { e.SOURCE, e.MESSAGE_ID, e.FIELD_SEQ });
-
-                entity.ToTable("QMQ_IN_BODY_H");
-
-                entity.Property(e => e.FEATURE).HasColumnType("CHAR(40)");
-
-                entity.Property(e => e.VALUE).HasColumnType("VARCHAR(1000)");
-
-                entity.HasOne(d => d.QMQ_IN_HEADER)
-                    .WithMany(p => p.QMQ_IN_BODY_Hs)
-                    .HasForeignKey(d => new { d.SOURCE, d.MESSAGE_ID })
-                    .OnDelete(DeleteBehavior.ClientSetNull);
-            });
-
-            modelBuilder.Entity<QMQ_IN_ERRORLOG>(entity =>
-            {
-                entity.HasKey(e => new { e.SOURCE, e.MESSAGE_ID, e.DATE_TIME_ERROR });
-
-                entity.ToTable("QMQ_IN_ERRORLOG");
-
-                entity.Property(e => e.ERROR_TEXT).HasColumnType("VARCHAR(4000)");
-
-                entity.HasOne(d => d.QMQ_IN_HEADER)
-                    .WithMany(p => p.QMQ_IN_ERRORLOGs)
-                    .HasForeignKey(d => new { d.SOURCE, d.MESSAGE_ID })
-                    .OnDelete(DeleteBehavior.ClientSetNull);
-            });
-
-            modelBuilder.Entity<QMQ_IN_ERRORLOG_H>(entity =>
-            {
-                entity.HasKey(e => new { e.SOURCE, e.MESSAGE_ID, e.DATE_TIME_ERROR });
-
-                entity.ToTable("QMQ_IN_ERRORLOG_H");
-
-                entity.Property(e => e.ERROR_TEXT).HasColumnType("VARCHAR(4000)");
-
-                entity.HasOne(d => d.QMQ_IN_HEADER)
-                    .WithMany(p => p.QMQ_IN_ERRORLOG_Hs)
-                    .HasForeignKey(d => new { d.SOURCE, d.MESSAGE_ID })
-                    .OnDelete(DeleteBehavior.ClientSetNull);
-            });
-
+            
             modelBuilder.Entity<QMQ_IN_HEADER>(entity =>
             {
                 entity.HasKey(e => new { e.SOURCE, e.MESSAGE_ID });
@@ -147,50 +98,7 @@ namespace QMessage
                     .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
-            modelBuilder.Entity<QMQ_OUT_BODY_H>(entity =>
-            {
-                entity.HasKey(e => new { e.SOURCE, e.MESSAGE_ID, e.FIELD_SEQ });
-
-                entity.ToTable("QMQ_OUT_BODY_H");
-
-                entity.Property(e => e.FEATURE).HasColumnType("CHAR(40)");
-
-                entity.Property(e => e.VALUE).HasColumnType("VARCHAR(1000)");
-
-                entity.HasOne(d => d.QMQ_OUT_HEADER)
-                    .WithMany(p => p.QMQ_OUT_BODY_Hs)
-                    .HasForeignKey(d => new { d.SOURCE, d.MESSAGE_ID })
-                    .OnDelete(DeleteBehavior.ClientSetNull);
-            });
-
-            modelBuilder.Entity<QMQ_OUT_ERRORLOG>(entity =>
-            {
-                entity.HasKey(e => new { e.SOURCE, e.MESSAGE_ID, e.DATE_TIME_ERROR });
-
-                entity.ToTable("QMQ_OUT_ERRORLOG");
-
-                entity.Property(e => e.ERROR_TEXT).HasColumnType("VARCHAR(4000)");
-
-                entity.HasOne(d => d.QMQ_OUT_HEADER)
-                    .WithMany(p => p.QMQ_OUT_ERRORLOGs)
-                    .HasForeignKey(d => new { d.SOURCE, d.MESSAGE_ID })
-                    .OnDelete(DeleteBehavior.ClientSetNull);
-            });
-
-            modelBuilder.Entity<QMQ_OUT_ERRORLOG_H>(entity =>
-            {
-                entity.HasKey(e => new { e.SOURCE, e.MESSAGE_ID, e.DATE_TIME_ERROR });
-
-                entity.ToTable("QMQ_OUT_ERRORLOG_H");
-
-                entity.Property(e => e.ERROR_TEXT).HasColumnType("VARCHAR(4000)");
-
-                entity.HasOne(d => d.QMQ_OUT_HEADER)
-                    .WithMany(p => p.QMQ_OUT_ERRORLOG_Hs)
-                    .HasForeignKey(d => new { d.SOURCE, d.MESSAGE_ID })
-                    .OnDelete(DeleteBehavior.ClientSetNull);
-            });
-
+            
             modelBuilder.Entity<QMQ_OUT_HEADER>(entity =>
             {
                 entity.HasKey(e => new { e.SOURCE, e.MESSAGE_ID });
@@ -214,17 +122,6 @@ namespace QMessage
         public DbSet<QMessage.Models.QMQ_OUT_HEADER> QmqOutHeader { get; set; }
 
         public DbSet<QMessage.Models.QMQ_OUT_BODY> QmqOutBody { get; set; }
-
-        public DbSet<QMessage.Models.QMQ_IN_BODY_H> QmqInBodyH { get; set; }
-
-        public DbSet<QMessage.Models.QMQ_OUT_BODY_H> QmqOutBodyH { get; set; }
-
-        public DbSet<QMessage.Models.QMQ_IN_ERRORLOG_H> QmqInErrorlogH { get; set; }
-
-        public DbSet<QMessage.Models.QMQ_IN_ERRORLOG> QmqInErrorlog { get; set; }
-
-        public DbSet<QMessage.Models.QMQ_OUT_ERRORLOG> QmqOutErrorlog { get; set; }
-
-        public DbSet<QMessage.Models.QMQ_OUT_ERRORLOG_H> QmqOutErrorlogH { get; set; }
+        
     }
 }

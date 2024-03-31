@@ -9,10 +9,7 @@ namespace QMessage.Models
     {
         public QMQ_IN_HEADER()
         {
-            QMQ_IN_BODY_Hs = new HashSet<QMQ_IN_BODY_H>();
             QMQ_IN_BODies = new HashSet<QMQ_IN_BODY>();
-            QMQ_IN_ERRORLOG_Hs = new HashSet<QMQ_IN_ERRORLOG_H>();
-            QMQ_IN_ERRORLOGs = new HashSet<QMQ_IN_ERRORLOG>();
         }
 
         public string SOURCE { get; set; }
@@ -26,9 +23,7 @@ namespace QMessage.Models
         public string DATE_TIME_PROC { get; set; }
         public long? RETRY_COUNT { get; set; }
 
-        public virtual ICollection<QMQ_IN_BODY_H> QMQ_IN_BODY_Hs { get; set; }
         public virtual ICollection<QMQ_IN_BODY> QMQ_IN_BODies { get; set; }
-        public virtual ICollection<QMQ_IN_ERRORLOG_H> QMQ_IN_ERRORLOG_Hs { get; set; }
-        public virtual ICollection<QMQ_IN_ERRORLOG> QMQ_IN_ERRORLOGs { get; set; }
+        
     }
 }
