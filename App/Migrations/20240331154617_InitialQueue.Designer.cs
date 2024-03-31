@@ -8,8 +8,8 @@ using QMessage;
 namespace QMessage.Migrations
 {
     [DbContext(typeof(qmessageContext))]
-    [Migration("20240331034348_AlteracaoEntities")]
-    partial class AlteracaoEntities
+    [Migration("20240331154617_InitialQueue")]
+    partial class InitialQueue
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

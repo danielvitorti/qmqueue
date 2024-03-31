@@ -92,7 +92,6 @@ C:\projetos\net\QMessage\App\obj\Debug\net5.0\QMessage.RazorAssemblyInfo.cs
 C:\projetos\net\QMessage\App\bin\Debug\net5.0\appsettings.Development.json
 C:\projetos\net\QMessage\App\bin\Debug\net5.0\appsettings.json
 C:\projetos\net\QMessage\App\bin\Debug\net5.0\QMessage.StaticWebAssets.xml
-C:\projetos\net\QMessage\App\bin\Debug\net5.0\app.db
 C:\projetos\net\QMessage\App\bin\Debug\net5.0\QMessage.exe
 C:\projetos\net\QMessage\App\bin\Debug\net5.0\QMessage.deps.json
 C:\projetos\net\QMessage\App\bin\Debug\net5.0\QMessage.runtimeconfig.json
