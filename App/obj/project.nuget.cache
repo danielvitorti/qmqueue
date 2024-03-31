@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YwOJc19wT0irXtACJVvBPL4hJd0WUdlV6e2P9JzsLOEGzqOh61UTC1dQ1Zv6UWneEWOeANiPfpphYPTNjJTPKA==",
+  "dgSpecHash": "WhJZQJxwOuS2kECyTY3jiSbZAucG+I+f1IjkMh8EKR1Kqy9TbqW8owkI1NQYyjIa2vLVdRs/R5OUuA+wegiPbQ==",
   "success": true,
-  "projectFilePath": "C:\\projetos\\net\\QMessage\\App\\QMessage.csproj",
+  "projectFilePath": "c:\\projetos\\net\\QMessage\\App\\QMessage.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Daniel Mendes\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Daniel Mendes\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.12\\microsoft.aspnetcore.cryptography.internal.5.0.12.nupkg.sha512",

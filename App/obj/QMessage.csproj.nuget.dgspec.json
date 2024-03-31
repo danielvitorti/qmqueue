@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\projetos\\net\\QMessage\\App\\QMessage.csproj": {}
+    "c:\\projetos\\net\\QMessage\\App\\QMessage.csproj": {}
   },
   "projects": {
-    "C:\\projetos\\net\\QMessage\\App\\QMessage.csproj": {
+    "c:\\projetos\\net\\QMessage\\App\\QMessage.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projetos\\net\\QMessage\\App\\QMessage.csproj",
+        "projectUniqueName": "c:\\projetos\\net\\QMessage\\App\\QMessage.csproj",
         "projectName": "QMessage",
-        "projectPath": "C:\\projetos\\net\\QMessage\\App\\QMessage.csproj",
+        "projectPath": "c:\\projetos\\net\\QMessage\\App\\QMessage.csproj",
         "packagesPath": "C:\\Users\\Daniel Mendes\\.nuget\\packages\\",
-        "outputPath": "C:\\projetos\\net\\QMessage\\App\\obj\\",
+        "outputPath": "c:\\projetos\\net\\QMessage\\App\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
